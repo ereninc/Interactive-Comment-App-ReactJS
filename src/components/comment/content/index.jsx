@@ -8,6 +8,7 @@ export default function Content() {
   const {
     comment: { content, replyingTo },
     isEditing,
+    onUpdate,
   } = useComment();
 
   const [comment, setComment] = useState(content);
@@ -16,16 +17,20 @@ export default function Content() {
     setComment(e.target.value);
   };
 
+  const handleUpdate = () => {
+    onUpdate(comment);
+  };
+
   return (
     <div className={styles.content}>
       {isEditing ? (
         <>
-          <Textarea
-            rows={4}
-            value={`@${replyingTo}${comment}`}
-            onChange={handleCommentChange}
-          />
-          <Button className={styles.updateButton} variant="primary">
+          <Textarea rows={4} value={comment} onChange={handleCommentChange} />
+          <Button
+            className={styles.updateButton}
+            variant="primary"
+            onClick={handleUpdate}
+          >
             Update
           </Button>
         </>

@@ -21,6 +21,48 @@ function CommentContextProvider({ children, data }) {
     console.log("edited");
   };
 
+  const onUpdate = (newComment) => {
+    setComment({
+      ...comment,
+      content: newComment,
+      createdAt: "Edited 1 second ago",
+    });
+    setIsEditing(false);
+  };
+
+  const onNewReply = (newReply) => {
+    setComment({
+      ...comment,
+      replies: [
+        ...(comment.replies ?? []),
+        {
+          id: Math.floor(Math.random() * 1000),
+          content: newReply,
+          // createdAt: new Date().toLocaleDateString(),
+          createdAt: "1 second ago",
+          score: 0,
+          replyingTo: comment.user.username,
+          user: data.currentUser,
+        },
+      ],
+    });
+    setIsReplying(false);
+  };
+
+  const onPositiveVote = () => {
+    setComment({
+      ...comment,
+      score: comment.score + 1,
+    });
+  };
+
+  const onNegativeVote = () => {
+    setComment({
+      ...comment,
+      score: comment.score - 1,
+    });
+  };
+
   const contextData = useMemo(
     () => ({
       comment,
@@ -30,6 +72,10 @@ function CommentContextProvider({ children, data }) {
       onReply,
       onDelete,
       onEdit,
+      onUpdate,
+      onNewReply,
+      onPositiveVote,
+      onNegativeVote,
     }),
     [isReplying, isEditing, comment]
   );

@@ -4,12 +4,15 @@ import Button from "../../button";
 import styles from "./styles.module.scss";
 
 export default function Reactions() {
-  const { comment } = useComment();
+  const { onPositiveVote, onNegativeVote, comment } = useComment();
   // const {comment : {score}} = useComment(); // This is the same as the line above but better because we only need the score from the comment object
 
   return (
     <div className={styles.reactionsWrapper}>
-      <Button aria-labelledby="Positive reaction button">
+      <Button
+        aria-labelledby="Positive reaction button"
+        onClick={onPositiveVote}
+      >
         <img
           src="./images/icon-plus.svg"
           alt="upvote button"
@@ -17,7 +20,10 @@ export default function Reactions() {
         />
       </Button>
       <span>{comment.score}</span>
-      <Button aria-labelledby="Negative reaction button">
+      <Button
+        aria-labelledby="Negative reaction button"
+        onClick={onNegativeVote}
+      >
         <img
           src="./images/icon-minus.svg"
           alt="downvote button"

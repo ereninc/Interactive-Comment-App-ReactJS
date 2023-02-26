@@ -10,7 +10,7 @@ import styles from "./styles.module.scss";
 import NewCommentEditor from "../new-comment-editor";
 
 export default function Comment() {
-  const { isReplying, currentUser, comment } = useComment();
+  const { isReplying, currentUser, comment, onNewReply } = useComment();
 
   if (!comment) {
     return null;
@@ -42,6 +42,7 @@ export default function Comment() {
       )}
       {isReplying && (
         <NewCommentEditor
+          onClick={onNewReply}
           isReply={true}
           image={currentUser.image.png}
           alt={currentUser.usename}
