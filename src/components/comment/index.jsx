@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Reactions from "./reactions";
 import Header from "./header";
 import Content from "./content";
@@ -7,12 +7,14 @@ import {
   CommentContextProvider,
 } from "../../hooks/comment/useComment";
 import styles from "./styles.module.scss";
+import NewCommentEditor from "../new-comment-editor";
 
 export default function Comment() {
-  const {
-    currentUser,
-    comment: { replies },
-  } = useComment();
+  const { isReplying, currentUser, comment } = useComment();
+
+  if (!comment) {
+    return null;
+  }
 
   return (
     <>
@@ -24,9 +26,9 @@ export default function Comment() {
         </div>
       </div>
 
-      {replies?.length > 0 && (
+      {comment?.replies?.length > 0 && (
         <div className={styles.repliesWrapper}>
-          {replies.map((reply) => {
+          {comment.replies.map((reply) => {
             return (
               <CommentContextProvider
                 data={{ comment: reply, currentUser: currentUser }}
@@ -37,6 +39,13 @@ export default function Comment() {
             );
           })}
         </div>
+      )}
+      {isReplying && (
+        <NewCommentEditor
+          isReply={true}
+          image={currentUser.image.png}
+          alt={currentUser.usename}
+        />
       )}
     </>
   );

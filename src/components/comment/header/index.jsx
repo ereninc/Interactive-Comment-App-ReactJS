@@ -5,6 +5,9 @@ import { useComment } from "../../../hooks/comment/useComment";
 
 export default function Header() {
   const {
+    onReply,
+    onDelete,
+    onEdit,
     comment: {
       createdAt,
       user: {
@@ -28,22 +31,22 @@ export default function Header() {
       <div className={styles.actionButtons}>
         {isCurrentUser ? (
           <>
-            <Button variant="warning">
+            <Button variant="warning" onClick={onDelete}>
               <img
                 src="./images/icon-delete.svg"
                 alt="Delete"
                 aria-hidden="true"
-              />{" "}
+              />
               Delete
             </Button>
-            <Button>
-              <img src="./images/icon-edit.svg" alt="Edit" aria-hidden="true" />{" "}
+            <Button onClick={onEdit}>
+              <img src="./images/icon-edit.svg" alt="Edit" aria-hidden="true" />
               Edit
             </Button>
           </>
         ) : (
-          <Button>
-            <img src="./images/icon-reply.svg" alt="Reply" aria-hidden="true" />{" "}
+          <Button onClick={onReply}>
+            <img src="./images/icon-reply.svg" alt="Reply" aria-hidden="true" />
             Reply
           </Button>
         )}

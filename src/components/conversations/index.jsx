@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 
 export default function Conversations() {
   const comments = Data.comments;
-  console.log(comments);
+  // console.log(comments);
 
   return (
     <div className={styles.conversationWrapper}>
@@ -21,7 +21,10 @@ export default function Conversations() {
           </CommentContextProvider>
         );
       })}
-      <NewCommentEditor />
+      <NewCommentEditor
+        image={Data.currentUser.image.png}
+        alt={Data.currentUser.username}
+      />
     </div>
   );
 }

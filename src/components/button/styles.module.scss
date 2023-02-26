@@ -17,3 +17,16 @@
 .warning {
   color: var(--soft-red);
 }
+
+.primary {
+  color: var(--white);
+  background-color: var(--moderate-blue);
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: 0.5s ease all;
+  text-transform: uppercase;
+}
+
+.primary:hover {
+  background-color: var(--dark-blue);
+}
